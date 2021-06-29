@@ -1,17 +1,26 @@
-name: goreleaser
+name: Push to container registry
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
-steps:
-- uses: actions/checkout@v2
 
-- run: mkdir -p path/to/artifact
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
-- run: echo hello > path/to/artifact/world.txt
+    steps:
+        - uses: actions/checkout@v2
 
-- uses: actions/upload-artifact@v2
-  with:
-    name: my-artifact
-    path: path/to/artifact/world.txt
+        - run: mkdir -p path/to/artifact
+
+        - run: echo hello > path/to/artifact/world.txt
+
+        - uses: actions/upload-artifact@v2
+          with:
+            name: my-artifact
+            path: path/to/artifact/world.txt
